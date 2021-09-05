@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Wedding Invitations</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cutive&family=Quicksand:wght@300&family=Raleway:wght@300&family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Page Heading -->
+<div class="topSection">
+    <h1>Wedding Invitations Designer</h1>
+</div>
+
+<!-- Left side of document, inputs -->
+<div class="leftSection">
+    <div class="leftStyle" id="infoInput">
+        <p style="margin: 0; border: 0; padding: 0;">First Name</p>
+        <input type="text" id="firstName" onkeyup="input()" onchange="initials()">
+        <p>Second Name</p>
+        <input type="text" id="secondName" onkeyup="input()" onchange="initials()" onkeydown="andIn()">
+        <p>Last Name</p>
+        <input type="text" id="sirName" onkeyup="input()">
+        <p>Date of Wedding</p>
+        <input type="date" id="dateIn" onchange="dateInput()">
+        <p>Location of Wedding</p>
+        <input type="text" id="locationIn" onkeyup="input()">
+        <p>City</p>
+        <Input type="text" id="cityIn" onkeyup="input()">
+    </div>    
+    <div class="selections">
+        <p>Style Selections</p>
+        <button id="styleOne" onclick="styleChangeB(backgroundImages[1]); styleChangeF(fontStyles[1]);">Style One</button>
+        <button id="styleTwo" onclick="styleChangeB(backgroundImages[2]); styleChangeF(fontStyles[2]);">Style Two</button>
+        <button id="styleThree" onclick="styleChangeB(backgroundImages[3]); styleChangeF(fontStyles[3]);">Style Three</button>
+    </div>    
+</div>
+
+<!-- Right side of document, outputs -->
+<div class="rightSection">
+    <div class="rightStyle" id="infoOutput" style="background-image: url('https://st3.depositphotos.com/4041239/12552/v/950/depositphotos_125524694-stock-illustration-decorative-border-and-golden-background.jpg');">
+        <h2 id="InitialOut"></h2>
+        <p>You are invited to the wedding of</p>
+        <h3 id="firstOut"></h3>
+        <p class="and" id="and"></p>
+        <h3 id="secondOut"></h3>
+        <h3 id="lastOut" style="text-decoration: underline;"></h3>
+        <h4 id="dateOut" ></h4>
+        <h4 id="locationOut"></h4>
+        <h4 id="cityOut" style="margin-top: 20px"></h4>
+    </div>
+</div>
+</body>
+
+<script>
+
+// Function for placing '&'
+function andIn(){
+    document.getElementById('and').innerHTML = '&';
+}
+
+// Function for displaying first name, second name, sirname and location
+function input(){
+    document.getElementById('firstOut').innerHTML = document.getElementById('firstName').value;
+    document.getElementById('secondOut').innerHTML = document.getElementById('secondName').value;
+    document.getElementById('lastOut').innerHTML = document.getElementById('sirName').value;
+    document.getElementById('locationOut').innerHTML = document.getElementById('locationIn').value;
+    document.getElementById('locationOut').innerHTML = document.getElementById('locationOut').innerHTML + ',';
+    document.getElementById('cityOut').innerHTML = document.getElementById('cityIn').value;
+};
+
+// Function for displaying the first letters of each name at top of screen
+function initials(){
+    var first = document.getElementById('firstName').value.slice(0,1);
+    var second = document.getElementById('secondName').value.slice(0,1);
+    document.getElementById('InitialOut').innerHTML = first + ' & ' + second;
+};
+
+// Array of months, changes from number to string
+const monthNames = new Array(); 
+    monthNames[1] = 'January';
+    monthNames[2] = 'February';
+    monthNames[3] = 'March';
+    monthNames[4] = 'April';
+    monthNames[5] = 'May';
+    monthNames[6] = 'June';
+    monthNames[7] = 'July';
+    monthNames[8] = 'August';
+    monthNames[9] = 'September';
+    monthNames[10] = 'October';
+    monthNames[11] = 'November';
+    monthNames[12] = 'December';
+
+// Function for displaying datebox value, adds defines to date, changes month to string
+function dateInput(){
+    let [year, monthwork, datework] = document.getElementById('dateIn').value.split('-');
+
+    if (datework < 10){
+        var date = datework.replace(0,'');
+
+    } else date = datework;
+
+
+    if (date == 1 || date == 21 || date == 31){
+            defines = 'st';
+
+    } else if (date == 2 || date == 22){ 
+            defines = 'nd';
+
+    } else if (date == 3 || date == 23){
+            defines = 'rd';
+
+    } else defines = 'th';
+
+    if (monthwork < 10){
+            var monthSplit = monthwork.replace(0,'');
+            var month = monthNames[monthSplit];
+    }
+    else{
+            var month = monthNames[monthwork];
+    }
+    document.getElementById('dateOut').innerHTML = date + defines + ' ' + month  + ', ' + year;
+};
+
+// Array of background URLs, Array of Fonts, Array of font sizes
+const backgroundImages = new Array();
+backgroundImages[1] = "url('https://st3.depositphotos.com/4041239/12552/v/950/depositphotos_125524694-stock-illustration-decorative-border-and-golden-background.jpg')";
+backgroundImages[2] = "url('https://i.pinimg.com/originals/1e/1c/5e/1e1c5e47b66586f01d052356821362a2.jpg')";
+backgroundImages[3] = "url('https://i.pinimg.com/736x/03/27/fd/0327fdaf4fb26d33cb7752077b5702ef--border-design-floral-border.jpg')";
+
+const fontStyles = new Array();
+fontStyles[1] = "monospace";
+fontStyles[2] = "dancing";
+fontStyles[3] = "quicksand";
+
+// Function for changing output Background, Fontstyle and Fontsize
+function styleChangeB(backgroundImages){
+    document.getElementById('infoOutput').style.backgroundImage = backgroundImages;
+};    
+function styleChangeF(fontStyles){
+    document.getElementById('infoOutput').style.fontFamily = fontStyles;
+};
+
+</script>
+</html>
